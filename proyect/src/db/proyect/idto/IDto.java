@@ -1,6 +1,6 @@
 package db.proyect.idto;
 
-public interface IproyectDTO {
+public interface IDto {
     public String insert();
 
     public String update();

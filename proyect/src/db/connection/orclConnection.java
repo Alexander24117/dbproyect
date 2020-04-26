@@ -42,8 +42,9 @@ private orclConnection(){
         try {
             st = con.createStatement();
             rs = st.executeQuery(sql);
+            System.out.println("Message: Query successful!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("F: "+e.getMessage());
             }
         return rs;
     }
@@ -53,8 +54,9 @@ private orclConnection(){
         try {
             st = con.createStatement();
             res = st.executeUpdate(sql);
+            System.out.println("Message: Update successful!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("F: "+e.getMessage());
         }
         return res;
     }
