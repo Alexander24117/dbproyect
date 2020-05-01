@@ -1,18 +1,18 @@
-package db.connection;
+package db.connections;
 import java.io.IOException;
 import java.sql.*;
 import java.io.FileInputStream;
 import java.util.Properties;
 
 
-public class orclConnection {
+public class OracleConnection {
 
-    private static orclConnection connection = null;
+    private static OracleConnection connection = null;
 
     private Connection con;
 
 
-private orclConnection(){
+private OracleConnection(){
 
     Properties conProperties = new Properties();
     try {
@@ -24,20 +24,20 @@ private orclConnection(){
             String password = conProperties.getProperty("password");
 
              con = DriverManager.getConnection(url, user, password);
-                System.out.println("connected...");
+                System.out.println("link started...");
         } catch (IOException | SQLException e) {
         System.out.println(e.getMessage());
             }
 
     }
-    public static orclConnection getInstance(){
+    public static OracleConnection getInstance(){
         if(connection == null){
-            connection = new orclConnection();
+            connection = new OracleConnection();
         }
         return connection;
     }
     public ResultSet executeQuery(String sql){
-        Statement st = null;
+        Statement st;
         ResultSet rs = null;
         try {
             st = con.createStatement();
@@ -50,7 +50,7 @@ private orclConnection(){
     }
     public int executeUpdate(String sql){
         int res = 0;
-        Statement st = null;
+        Statement st;
         try {
             st = con.createStatement();
             res = st.executeUpdate(sql);

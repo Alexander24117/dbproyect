@@ -1,7 +1,7 @@
-package db.server;
+package db.operations;
 
-import db.Object.Container;
-import db.connection.OrclConnection;
+import db.util.container.Container;
+import db.connections.OracleConnection;
 
 import db.proyect.idto.IDto;
 
@@ -12,22 +12,24 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class ExecuteSql<T extends IDto> {
-    protected OrclConnection con;
-    private Class<T> entityClass;
+    protected OracleConnection con;
+    private final Class<T> entityClass;
 
     public ExecuteSql(Class<T> entityClass) {
-        this.con = OrclConnection.getInstance();
+        this.con = OracleConnection.getInstance();
         this.entityClass = entityClass;
     }
+
 
     public IDto getOneOnlyResult(String sql) {
         T newObject = newObject();
         ResultSet rs = con.executeQuery(sql);
         try {
             while (rs.next()) {
-                newObject = dataForObject(rs, newObject);
+                dataForObject(rs, newObject);
             }
         } catch (SQLException e) {
+            e.getMessage();
         }
         return newObject;
     }
@@ -47,7 +49,7 @@ public class ExecuteSql<T extends IDto> {
         try {
             while (rs.next()) {
                 T newObject = newObject();
-                newObject = dataForObject(rs, newObject);
+                dataForObject(rs, newObject);
                 allData.add(newObject);
             }
         } catch (SQLException e) {
@@ -94,6 +96,6 @@ public class ExecuteSql<T extends IDto> {
             columnName = columnName.substring(0, pos) +
                     setFirstLetterToUpperCase(columnName.substring(pos + 1));
         }
-        return "set" + setFirstLetterToUpperCase(columnName.substring(0));
+        return "set" + setFirstLetterToUpperCase(columnName);
     }
 }

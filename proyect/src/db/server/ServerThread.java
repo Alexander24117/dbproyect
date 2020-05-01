@@ -1,13 +1,15 @@
 package db.server;
 
+import db.operations.ActionQuery;
+import db.operations.ExecuteSql;
 import db.proyect.idto.IDto;
 
 import java.io.*;
 import java.net.Socket;
 
 public class ServerThread implements Runnable {
-    private Socket socket;
-    private DataInputStream in;
+    private final Socket socket;
+    private ObjectInputStream in;
 
     public ServerThread(Socket socket) {
         this.socket = socket;
@@ -16,24 +18,24 @@ public class ServerThread implements Runnable {
     @Override
     public void run() {
         try {
-            InputStream inputStream = socket.getInputStream();
-            in = new DataInputStream(socket.getInputStream());
+            in = new ObjectInputStream(socket.getInputStream());
 
             OutputStream outputStream = socket.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-
-            while (true) {
-                String request = in.readUTF();
-                System.out.println(request);
-                if (request.contains("select")) {
-                    IDto response = getData(request);
-                    oos.writeObject(response);
-                    oos.flush();
-                } else {
-                    break;
+            boolean actio = true;
+            while (actio) {
+                try {
+                    ActionQuery actionQuery = (ActionQuery) in.readObject();
+                    actionQuery.setObjectOutputStream(oos);
+                    actio = actionQuery.doAction();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
+                oos.flush();
+
+
             }
-            in.close();;
+            in.close();
             oos.close();
         } catch (IOException e) {
             System.out.println("ServerThread Error:" + e.getMessage());
@@ -41,17 +43,5 @@ public class ServerThread implements Runnable {
 
     }
 
-    private IDto getData(String sql) {
-        String nameIDto = sql.substring(0, sql.indexOf("#"));
-        sql = sql.substring(sql.indexOf("#") + 1);
-        IDto result = null;
-        try {
-            Class classIDto = Class.forName(nameIDto);
-            ExecuteSql<IDto> executeSql = new ExecuteSql<IDto>(classIDto);
-            result = executeSql.getOneOnlyResult(sql);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+
 }

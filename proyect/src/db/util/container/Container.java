@@ -1,4 +1,4 @@
-package db.Object;
+package db.util.container;
 
 
 public class Container<T> {
@@ -29,7 +29,7 @@ public class Container<T> {
 
     public boolean upadateNode(int index, T data) {
         //get the node
-        Node temp = nodeDataAtIndex(index);
+        Node<T> temp = nodeDataAtIndex(index);
 
         //if the node exist change the data else send false
         if (temp != null) {
@@ -61,11 +61,11 @@ public class Container<T> {
 
     public void add(T nodeData) {
         if (head == null) {
-            head = new Node<T>(nodeData);
+            head = new Node<>(nodeData);
 
         } else {
             Node<T> temp = head;
-            Node<T> newNode = new Node<T>(nodeData);
+            Node<T> newNode = new Node<>(nodeData);
             // se mueve a través de los nodos hasta obtener el último, sin "getNext" para asignar el nuevo nodo.
             while (true) {
                 if (!temp.hasNextNode()) {
@@ -88,21 +88,22 @@ public class Container<T> {
         } else if (index > size || index < 0)// si el indice es mas grande que el tamaño de la lista o un valor negativo.
         {
             return false;
-        } else if (index == 0)// si el nodo a eliminar es el primero en la lista
-        {
-            head = temp.getNext();// el nuevo nodo sera igual a la segunda refencia.
-            return true;
         } else {
-            // encuentra el anterior nodo del cual se eliminara
-            for (int i = 0; temp != null && i < index - 1; i++) {
-                temp = temp.getNext();
-            }
-            // se establece nextNode es igual al siguiente para eliminar la referencia.
-            Node<T> nextNode = temp.getNext().getNext();// mas de uno aqui le estallo la head xd.
+            if (index == 0)// si el nodo a eliminar es el primero en la lista
+                head = temp.getNext();// el nuevo nodo sera igual a la segunda refencia.
+            else {
+                // encuentra el anterior nodo del cual se eliminara
+                for (int i = 0; temp != null && i < index - 1; i++) {
+                    temp = temp.getNext();
+                }
+                // se establece nextNode es igual al siguiente para eliminar la referencia.
+                assert temp != null;
+                Node<T> nextNode = temp.getNext().getNext();// mas de uno aqui le estallo la head xd.
 
-            // se establece este nodo como el siguiente nodo de el que se eliminara de la referencia.
-            temp.setNext(nextNode);
-            size--;
+                // se establece este nodo como el siguiente nodo de el que se eliminara de la referencia.
+                temp.setNext(nextNode);
+                size--;
+            }
             return true;
         }
     }

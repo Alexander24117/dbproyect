@@ -1,15 +1,16 @@
 package db.proyect.idao;
 
+import db.util.container.Container;
 import db.proyect.idto.IDto;
 
 public interface IDao {
-    public boolean insert(IDto dto);
+    boolean insert(IDto dto);
 
-    public boolean update(IDto dto);
+    boolean update(IDto dto);
 
-    public boolean delete(IDto dto);
+    boolean delete(IDto dto);
 
-    public IDao getById(IDto dto);
+    IDto getById(IDto dto);
 
-
+    Container<IDto> getAll();
 }

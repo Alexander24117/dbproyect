@@ -1,4 +1,4 @@
-package db.Object;
+package db.util.container;
 
 import java.io.Serializable;
 
@@ -37,10 +37,7 @@ public class Node<T> implements Serializable {
     }
 
     public boolean hasNextNode(){
-        if (next==null)
-            return false;
-        else
-            return true;
+        return next != null;
 
     }
 
