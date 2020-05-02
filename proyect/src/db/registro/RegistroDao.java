@@ -1,4 +1,4 @@
-package db.Registro;
+package db.registro;
 
 import db.proyect.idao.AbstractDao;
 

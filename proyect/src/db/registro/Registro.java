@@ -1,4 +1,4 @@
-package db.Registro;
+package db.registro;
 
 import db.proyect.idto.IDto;
 
@@ -74,12 +74,12 @@ public class Registro implements IDto, Serializable {
 
     @Override
     public String insert() {
-         return "INSERT INTO ADMIN.REGISTRO (user_id, name, username, password, status) VALUES('"
+         return "INSERT INTO REGISTRO (user_id, name, username, password, status) VALUES('"
                 + getUser_Id() + "','"
                 + getName().trim() + "','"
-                + getUser_Name() + "','"
-                + getPassword() + "','"
-                + getState() + "');";
+                + getUser_Name().trim() + "','"
+                + getPassword().trim() + "','"
+                + getState().trim() + "');";
     }
 
     @Override
