@@ -1,13 +1,13 @@
 package db.proyect.idto;
 
 public interface IDto {
-    public String insert();
+    String insert();
 
-    public String update();
+    String update();
 
-    public String delete();
+    String delete();
 
-    public String findAll();
+    String findAll();
 
-    public String findById();
+    String findById();
 }
