@@ -18,7 +18,7 @@ private OracleConnection(){
     Properties conProperties = new Properties();
     try {
 
-        conProperties.load(new FileInputStream("data/connection.porperties") );
+        conProperties.load(new FileInputStream("data/connection.properties") );
 
             String url =conProperties.getProperty("url");
             String user = conProperties.getProperty("user");
