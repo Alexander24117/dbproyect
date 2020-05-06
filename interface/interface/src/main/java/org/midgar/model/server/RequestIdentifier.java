@@ -1,7 +1,7 @@
 package org.midgar.model.server;
 
 import org.midgar.model.proyect.idto.IDto;
-import org.midgar.model.util.container.Container;
+import org.midgar.model.util.container.List;
 
 public abstract class RequestIdentifier {
 
@@ -50,10 +50,10 @@ public abstract class RequestIdentifier {
         return result;
     }
 
-    public Container<IDto> getAllData(String sql) {
+    public List<IDto> getAllData(String sql) {
         String nameIDto = sql.substring(0, sql.indexOf("#"));
         sql = sql.substring(sql.indexOf("#") + 1);
-        Container<IDto> result = null;
+        List<IDto> result = null;
         try {
             Class classIDto = Class.forName(nameIDto);
             ExecuteSql<IDto> executeSql = new ExecuteSql<IDto>(classIDto);

@@ -3,30 +3,35 @@ package org.midgar.model.registro;
 import org.midgar.model.proyect.idto.IDto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class Registro implements IDto, Serializable {
 
     private static final long serialVersionUID = 3568242047161152104L;
-    private Integer user_Id;
-    private String name, user_Name, password, state;
+    private BigDecimal user_id;
+    private String name;
+    private String username;
+    private String password;
+    private String status;
 
 
     public Registro() {
     }
 
-    public Registro(Integer user_Id, String name, String user_Name, String password, String state) {
-        this.user_Id = user_Id;
+    public Registro(BigDecimal user_id, String name, String username, String password, String status) {
+        this.user_id = user_id;
         this.name = name;
-        this.user_Name = user_Name;
+        this.username = username;
         this.password = password;
+        this.status = status;
     }
 
-    public Integer getUser_Id() {
-        return user_Id;
+    public BigDecimal getUser_id() {
+        return user_id;
     }
 
-    public void setUser_Id(Integer user_Id) {
-        this.user_Id = user_Id;
+    public void setUser_id(BigDecimal user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {
@@ -37,12 +42,12 @@ public class Registro implements IDto, Serializable {
         this.name = name;
     }
 
-    public String getUser_Name() {
-        return user_Name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_Name(String user_Name) {
-        this.user_Name = user_Name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -53,43 +58,43 @@ public class Registro implements IDto, Serializable {
         this.password = password;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "Registro{" +
-                "user_Id=" + user_Id +
+                "user_id=" + user_id +
                 ", name='" + name + '\'' +
-                ", user_Name='" + user_Name + '\'' +
+                ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", state='" + status + '\'' +
                 '}';
     }
 
-
     @Override
     public String insert() {
-         return "INSERT INTO REGISTRO (user_id, name, username, password, status) VALUES('"
-                + getUser_Id() + "','"
+        return "INSERT INTO REGISTRO(user_id, name,username, password, status) VALUES("
+                + getUser_id()+",'"
                 + getName().trim() + "','"
-                + getUser_Name().trim() + "','"
+                + getUsername().trim() + "','"
                 + getPassword().trim() + "','"
-                + getState().trim() + "');";
+                + getStatus().trim() + "')";
     }
 
     @Override
     public String update() {
-        return "UPDATE REGISTRO SET USERNAME = '"+ getName()+"' WHERE USER_ID = "+getUser_Id();
+        return "UPDATE REGISTRO SET USERNAME = '" + getName() + "' WHERE USER_ID = " + getUser_id();
     }
 
     @Override
     public String delete() {
-        return "DELETE FROM REGISTRO WHERE USER_ID = "+getUser_Id();
+        return "DELETE FROM REGISTRO WHERE USER_ID = " + getUser_id();
     }
 
     @Override
@@ -99,7 +104,7 @@ public class Registro implements IDto, Serializable {
 
     @Override
     public String findById() {
-        return "SELECT * FROM REGISTRO WHERE USER_ID = "+ getUser_Id();
+        return "SELECT * FROM REGISTRO WHERE USER_ID = " + getUser_id();
     }
 
 

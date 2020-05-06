@@ -2,7 +2,7 @@ package org.midgar.model.server;
 
 import org.midgar.model.connections.OracleConnection;
 import org.midgar.model.proyect.idto.IDto;
-import org.midgar.model.util.container.Container;
+import org.midgar.model.util.container.List;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -42,9 +42,9 @@ public class ExecuteSql<T extends IDto> {
 
     }
 
-    public Container<IDto> getManyResults(String sql) {
+    public List<IDto> getManyResults(String sql) {
         ResultSet rs = con.executeQuery(sql);
-        Container<IDto> allData = new Container<>();
+        List<IDto> allData = new List<>();
         try {
             while (rs.next()) {
                 T newObject = newObject();

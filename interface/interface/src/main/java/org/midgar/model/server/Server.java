@@ -13,6 +13,7 @@ public class Server {
             while (true){
                 System.out.println("Message: Listening...");
                 Socket client = server.accept();
+                System.out.println("Linked");
                 Runnable run = new ServerThread(client);
                 Thread thread = new Thread(run);
                 thread.start();

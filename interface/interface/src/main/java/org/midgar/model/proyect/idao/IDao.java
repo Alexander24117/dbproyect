@@ -1,7 +1,7 @@
 package org.midgar.model.proyect.idao;
 
 import org.midgar.model.proyect.idto.IDto;
-import org.midgar.model.util.container.Container;
+import org.midgar.model.util.container.List;
 
 public interface IDao {
     boolean insert(IDto dto);
@@ -12,5 +12,5 @@ public interface IDao {
 
     IDto getById(IDto dto);
 
-    Container<IDto> getAll();
+    List<IDto> getAll();
 }

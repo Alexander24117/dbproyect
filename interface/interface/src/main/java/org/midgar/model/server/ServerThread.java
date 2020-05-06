@@ -1,5 +1,7 @@
 package org.midgar.model.server;
 
+import org.midgar.model.proyect.idto.IDto;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,14 +27,23 @@ public class ServerThread extends RequestIdentifier implements Runnable {
             while (true) {
                 String request = in.readUTF();
                 System.out.println(request);
+                if(request.contains("select")){
+                    IDto response = getData(request);
+                    oos.writeObject(response);
+                    oos.flush();
+                }else{
+                    break;
+                }
                 //aqui se ejecuta la clase identificador
-                if (!request.contains("unlink")) {
+                /*if (!request.contains("unlink")) {
+
                     Object reply = requestIdentifier(request);
                     oos.writeObject(reply);
                     oos.flush();
                 } else
+                    System.out.println("unlinked");
                     break;
-
+*/
             }
         } catch (IOException e) {
             System.out.println("ServerThread Error:" + e.getMessage());

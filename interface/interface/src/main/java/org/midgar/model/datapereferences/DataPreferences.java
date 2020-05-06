@@ -3,52 +3,53 @@ package org.midgar.model.datapereferences;
 import org.midgar.model.proyect.idto.IDto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class DataPreferences implements IDto, Serializable {
 
     private static final long serialVersionUID = 7400183906825132092L;
 
-    private Integer user_Id;
-    private String favoriteColor, musicalGenre, hobby, sportsTalent, musicalTalent, artisticTalent;
+    private BigDecimal user_Id;
+    private String favorite_color, musical_genre, hobby, sports_talent, musical_talent, artistic_talent;
 
-    public DataPreferences(Integer user_Id,
-                           String favoriteColor,
-                           String musicalGenre,
+    public DataPreferences(BigDecimal user_Id,
+                           String favorite_color,
+                           String musical_genre,
                            String hobby,
-                           String sportsTalent,
-                           String musicalTalent,
-                           String artisticTalent) {
+                           String sports_talent,
+                           String musical_talent,
+                           String artistic_talent) {
         this.user_Id = user_Id;
-        this.favoriteColor = favoriteColor;
-        this.musicalGenre = musicalGenre;
+        this.favorite_color = favorite_color;
+        this.musical_genre = musical_genre;
         this.hobby = hobby;
-        this.sportsTalent = sportsTalent;
-        this.musicalTalent = musicalTalent;
-        this.artisticTalent = artisticTalent;
+        this.sports_talent = sports_talent;
+        this.musical_talent = musical_talent;
+        this.artistic_talent = artistic_talent;
     }
 
-    public Integer getUser_Id() {
+    public BigDecimal getUser_Id() {
         return user_Id;
     }
 
-    public void setUser_Id(Integer user_Id) {
+    public void setUser_Id(BigDecimal user_Id) {
         this.user_Id = user_Id;
     }
 
-    public String getFavoriteColor() {
-        return favoriteColor;
+    public String getFavorite_color() {
+        return favorite_color;
     }
 
-    public void setFavoriteColor(String favoriteColor) {
-        this.favoriteColor = favoriteColor;
+    public void setFavorite_color(String favorite_color) {
+        this.favorite_color = favorite_color;
     }
 
-    public String getMusicalGenre() {
-        return musicalGenre;
+    public String getMusical_genre() {
+        return musical_genre;
     }
 
-    public void setMusicalGenre(String musicalGenre) {
-        this.musicalGenre = musicalGenre;
+    public void setMusical_genre(String musical_genre) {
+        this.musical_genre = musical_genre;
     }
 
     public String getHobby() {
@@ -59,51 +60,64 @@ public class DataPreferences implements IDto, Serializable {
         this.hobby = hobby;
     }
 
-    public String getSportsTalent() {
-        return sportsTalent;
+    public String getSports_talent() {
+        return sports_talent;
     }
 
-    public void setSportsTalent(String sportsTalent) {
-        this.sportsTalent = sportsTalent;
+    public void setSports_talent(String sports_talent) {
+        this.sports_talent = sports_talent;
     }
 
-    public String getMusicalTalent() {
-        return musicalTalent;
+    public String getMusical_talent() {
+        return musical_talent;
     }
 
-    public void setMusicalTalent(String musicalTalent) {
-        this.musicalTalent = musicalTalent;
+    public void setMusical_talent(String musical_talent) {
+        this.musical_talent = musical_talent;
     }
 
-    public String getArtisticTalent() {
-        return artisticTalent;
+    public String getArtistic_talent() {
+        return artistic_talent;
     }
 
-    public void setArtisticTalent(String artisticTalent) {
-        this.artisticTalent = artisticTalent;
+    public void setArtistic_talent(String artistic_talent) {
+        this.artistic_talent = artistic_talent;
+    }
+
+    @Override
+    public String toString() {
+        return "DataPreferences{" +
+                "user_Id=" + user_Id +
+                ", favorite_color='" + favorite_color + '\'' +
+                ", musical_genre='" + musical_genre + '\'' +
+                ", hobby='" + hobby + '\'' +
+                ", sports_talent='" + sports_talent + '\'' +
+                ", musical_talent='" + musical_talent + '\'' +
+                ", artistic_talent='" + artistic_talent + '\'' +
+                '}';
     }
 
     @Override
     public String insert() {
-        return "INSERT INTO DATA_PREFERENCES (user_id, favorite_color, musical_genre, hobby, sports_talent, musical_talent, artistic_talent) VALUES(' "
-                +getUser_Id()+"','"
-                +getFavoriteColor().trim()+"','"
-                +getMusicalGenre().trim()+"','"
+        return "INSERT INTO DATA_PREFERENCES (user_id, favorite_color, musical_genre, hobby, sports_talent, musical_talent, artistic_talent) VALUES( "
+                +getUser_Id()+",'"
+                + getFavorite_color().trim()+"','"
+                + getMusical_genre().trim()+"','"
                 +getHobby().trim()+"','"
-                +getSportsTalent().trim()+"','"
-                +getMusicalTalent().trim()+"','"
-                +getArtisticTalent().trim()+"');";
+                + getSports_talent().trim()+"','"
+                + getMusical_talent().trim()+"','"
+                + getArtistic_talent().trim()+"')";
 
     }
 
     @Override
     public String update() {
-        return "UPDATE ACADEMIC_DATA SET favorite_color = '"+getFavoriteColor().trim()
-                +"', musical_genre = ' "+ getMusicalGenre().trim()
+        return "UPDATE ACADEMIC_DATA SET favorite_color = '"+ getFavorite_color().trim()
+                +"', musical_genre = ' "+ getMusical_genre().trim()
                 +"', hobby = ' "+getHobby().trim()
-                +"', sports_talent = ' "+getSportsTalent().trim()
-                +"', musical_talent = ' "+ getMusicalTalent().trim()
-                +"', artistic_talent= ' "+ getArtisticTalent().trim()
+                +"', sports_talent = ' "+ getSports_talent().trim()
+                +"', musical_talent = ' "+ getMusical_talent().trim()
+                +"', artistic_talent= ' "+ getArtistic_talent().trim()
                 +"' WHERE user_id = "+ getUser_Id();
     }
 

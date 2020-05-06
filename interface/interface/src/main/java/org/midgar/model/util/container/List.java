@@ -1,11 +1,11 @@
 package org.midgar.model.util.container;
 
 
-public class Container<T> {
+public class List<T> {
     private int size;
     private Node<T> head;
 
-    public Container() {
+    public List() {
         head = null;
     }
 

@@ -1,13 +1,13 @@
 package org.midgar.model.proyect.idto;
 
 public interface IDto {
-    String insert();
+    public String insert();
 
-    String update();
+    public String update();
 
-    String delete();
+    public String delete();
 
-    String findAll();
+    public String findAll();
 
-    String findById();
+    public String findById();
 }
