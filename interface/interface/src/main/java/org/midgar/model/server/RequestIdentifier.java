@@ -2,18 +2,19 @@ package org.midgar.model.server;
 
 import org.midgar.model.proyect.idto.IDto;
 import org.midgar.model.util.container.List;
-
+// toma los valores insert, update, delete, getOne y getAll
+// Estructura de la peticion = Clase + tipo de peticion +(opcional)sql
+// devolver el request
+//funcionando con todas las clases de las tablas
 public abstract class RequestIdentifier {
 
-    // toma los valores insert, update, delete, getOne y getAll
-    // Estructura de la peticion = Clase + tipo de peticion +(opcional)sql
-    // devolver el request
+
     public <T> Object requestIdentifier(String request) {
-        Object reply = null;
+        Object reply;
         if (request.contains("update")||request.contains("delete")||request.contains("insert")) {
              reply = getUpdate(request);
 
-        }else if (request.contains("where")){
+        }else if (request.contains("WHERE")){
             reply = getData(request);
         }else {
             reply = getAllData(request);
@@ -40,6 +41,7 @@ public abstract class RequestIdentifier {
         String nameIDto = sql.substring(0, sql.indexOf("#"));
         sql = sql.substring(sql.indexOf("#") + 1);
         IDto result = null;
+
         try {
             Class classIDto = Class.forName(nameIDto);
             ExecuteSql<IDto> executeSql = new ExecuteSql<IDto>(classIDto);

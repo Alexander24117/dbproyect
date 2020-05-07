@@ -12,6 +12,9 @@ public class DataPreferences implements IDto, Serializable {
     private BigDecimal user_Id;
     private String favorite_color, musical_genre, hobby, sports_talent, musical_talent, artistic_talent;
 
+    public DataPreferences() {
+    }
+
     public DataPreferences(BigDecimal user_Id,
                            String favorite_color,
                            String musical_genre,

@@ -23,6 +23,7 @@ public class ExecuteSql<T extends IDto> {
     public IDto getOneOnlyResult(String sql) {
         T newObject = newObject();
         ResultSet rs = con.executeQuery(sql);
+
         try {
             while (rs.next()) {
                 dataForObject(rs, newObject);
@@ -60,7 +61,9 @@ public class ExecuteSql<T extends IDto> {
     private T dataForObject(ResultSet rs, T newObject) {
         try {
             ResultSetMetaData metaData = rs.getMetaData();
+
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
+
                 String nameMethodSet = getNameSet(metaData.getColumnName(i));
                 Method methodToExecute = entityClass.getMethod(nameMethodSet, Class.forName(metaData.getColumnClassName(i)));
                 methodToExecute.invoke(newObject, rs.getObject(i));
@@ -85,16 +88,13 @@ public class ExecuteSql<T extends IDto> {
         return entityClass.getFields();
     }
 
-    private String setFirstLetterToUpperCase(String word) {
-        return Character.toUpperCase(word.charAt(0)) + word.substring(1);
+    private String getNameSet(String columnName) {
+        columnName = columnName.toLowerCase();
+        return "set" + setFirstLetterToUpperCase(columnName);
     }
 
-    private String getNameSet(String columnName) {
-        while (columnName.indexOf("_") > 0) {
-            int pos = columnName.indexOf("_");
-            columnName = columnName.substring(0, pos) +
-                    setFirstLetterToUpperCase(columnName.substring(pos + 1));
-        }
-        return "set" + setFirstLetterToUpperCase(columnName);
+    private String setFirstLetterToUpperCase(String word) {
+
+        return Character.toUpperCase(word.charAt(0)) + word.substring(1);
     }
 }

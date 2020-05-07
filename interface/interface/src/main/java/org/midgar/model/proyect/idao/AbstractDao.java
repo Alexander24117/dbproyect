@@ -10,8 +10,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 
-
-
 public abstract class AbstractDao<T extends IDto> implements IDao {
 
     protected OracleConnection con;
@@ -70,6 +68,7 @@ public abstract class AbstractDao<T extends IDto> implements IDao {
     public T newObject() {
         T newObject = null;
         try {
+
             newObject = entityClass.getConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,18 +79,12 @@ public abstract class AbstractDao<T extends IDto> implements IDao {
     private T dataForObject(ResultSet rs, T newObject) {
         try {
             ResultSetMetaData metaData = rs.getMetaData();
+
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                String nameMethodSet1 = getNameSet(metaData.getColumnName(i));
-
-                Method methodToExecute1 = entityClass.getMethod(nameMethodSet1, Class.forName(metaData.getColumnClassName(i)));
-                methodToExecute1.invoke(newObject, rs.getObject(i));
-
-
+                String nameMethodSet = getNameSet(metaData.getColumnName(i));
+                Method methodToExecute = entityClass.getMethod(nameMethodSet, Class.forName(metaData.getColumnClassName(i)));
+                methodToExecute.invoke(newObject, rs.getObject(i));
             }
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

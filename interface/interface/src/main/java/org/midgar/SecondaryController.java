@@ -17,8 +17,7 @@ public class SecondaryController {
     private PasswordField txtPassword;
     @FXML
     private PasswordField txtPassword2;
-    @FXML
-    private TextField txtconfirm;
+
     @FXML
     private Button btnRegister;
 
@@ -33,16 +32,18 @@ public class SecondaryController {
         String pass1 = "";
         String pass2 = "";
 
+
         pass1 = txtPassword.getText();
         pass2 = txtPassword2.getText();
-        if (pass1.equals(pass2)) {
-            btnRegister.setDisable(false);
-            txtconfirm.setDisable(true);
-            System.out.println("Bien");
-        } else {
+        if (!pass1.equals(pass2) || txtName.getText().isEmpty() ||txtUserName.getText().isEmpty()) {
             btnRegister.setDisable(true);
-            txtconfirm.setDisable(false);
+           // txtconfirm.setDisable(false);
             System.out.println("Mal");
+        } else {
+            btnRegister.setDisable(false);
+            //txtconfirm.setDisable(true);
+            System.out.println("Bien");
+
         }
 
     }

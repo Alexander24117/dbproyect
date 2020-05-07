@@ -10,21 +10,24 @@ public class AcademicData implements IDto, Serializable {
 
     private static final long serialVersionUID = 6877796980983908907L;
 
-    private BigDecimal User_ID;
+    private BigDecimal User_id;
     private String scholarShip, type_of_institution;
 
-    public AcademicData(BigDecimal user_ID, String scholarShip, String type_of_institution) {
-        User_ID = user_ID;
+    public AcademicData() {
+    }
+
+    public AcademicData(BigDecimal user_id, String scholarShip, String type_of_institution) {
+        User_id = user_id;
         this.scholarShip = scholarShip;
         this.type_of_institution = type_of_institution;
     }
 
-    public BigDecimal getUser_ID() {
-        return User_ID;
+    public BigDecimal getUser_id() {
+        return User_id;
     }
 
-    public void setUser_ID(BigDecimal user_ID) {
-        User_ID = user_ID;
+    public void setUser_id(BigDecimal user_id) {
+        User_id = user_id;
     }
 
     public String getScholarShip() {
@@ -46,7 +49,7 @@ public class AcademicData implements IDto, Serializable {
     @Override
     public String toString() {
         return "AcademicData{" +
-                "User_ID=" + User_ID +
+                "User_id=" + User_id +
                 ", scholarShip='" + scholarShip + '\'' +
                 ", type_of_institution='" + type_of_institution + '\'' +
                 '}';
@@ -55,7 +58,7 @@ public class AcademicData implements IDto, Serializable {
     @Override
     public String insert() {
         return "INSERT INTO ACADEMIC_DATA ( user_id, scholarship, type_of_institution) VALUES("
-                + getUser_ID() + ",'"
+                + getUser_id() + ",'"
                 + getScholarShip().trim() + "','"
                 + getType_of_institution().trim() + "')";
     }
@@ -64,12 +67,12 @@ public class AcademicData implements IDto, Serializable {
     public String update() {
         return "UPDATE ACADEMIC_DATA SET scholarship = '" + getScholarShip().trim()
                 + "', type_of_institution = '" + getType_of_institution().trim()
-                + "' WHERE USER_ID = " + getUser_ID();
+                + "' WHERE USER_ID = " + getUser_id();
     }
 
     @Override
     public String delete() {
-        return "DELETE FROM ACADEMIC_DATA WHERE USER_ID =" + getUser_ID();
+        return "DELETE FROM ACADEMIC_DATA WHERE USER_ID =" + getUser_id();
     }
 
     @Override
@@ -79,6 +82,6 @@ public class AcademicData implements IDto, Serializable {
 
     @Override
     public String findById() {
-        return "SELECT * FROM ACADEMIC_DATA WHERE USER_ID = " + getUser_ID();
+        return "SELECT * FROM ACADEMIC_DATA WHERE USER_ID = " + getUser_id();
     }
 }
